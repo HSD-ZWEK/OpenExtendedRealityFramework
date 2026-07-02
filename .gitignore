@@ -3,3 +3,5 @@
 /android/
 addons/godotopenxrvendors
 addons/godot-xr-tools
+addons
+.DS_Store
