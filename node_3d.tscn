@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_a0tk4"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_r3fl7"]
 
+[sub_resource type="Environment" id="Environment_8d6ww"]
+
 [node name="Node3D" type="Node3D" unique_id=1114470584]
 script = ExtResource("1_a202f")
 
@@ -11,6 +13,7 @@ script = ExtResource("1_a202f")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1187930714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+environment = SubResource("Environment_8d6ww")
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=349195180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
