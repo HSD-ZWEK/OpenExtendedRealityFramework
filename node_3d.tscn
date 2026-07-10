@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxri6c6qw48sc" path="res://node_3d.gd" id="1_a202f"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_a0tk4"]
+[ext_resource type="Script" uid="uid://be4k8yuw8kbx1" path="res://spatial_entities_manager.gd" id="2_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="3_r3fl7"]
 
 [sub_resource type="Environment" id="Environment_8d6ww"]
@@ -10,6 +11,10 @@
 script = ExtResource("1_a202f")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=391877039]
+
+[node name="SpatialEntitiesManager" type="Node3D" parent="XROrigin3D" unique_id=940936916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("2_r3fl7")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1187930714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
