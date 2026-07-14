@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 XRToolsUserSettings="*uid://bqgb8i74tm0t"
 XRToolsRumbleManager="*uid://by853dk86g1qw"
+SpatialUuidDb="*uid://dhl43gmoyfekt"
 
 [display]
 
@@ -27,7 +28,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray()
 
 [physics]
 
@@ -45,5 +46,22 @@ viewport/transparent_background=true
 
 openxr/enabled=true
 openxr/environment_blend_mode=2
+openxr/extensions/hand_tracking=true
+openxr/extensions/hand_tracking_unobstructed_data_source=true
+openxr/extensions/hand_tracking_controller_data_source=true
+openxr/extensions/hand_interaction_profile=true
+openxr/extensions/spatial_entity/enabled=true
+openxr/extensions/spatial_entity/enable_spatial_anchors=true
+openxr/extensions/spatial_entity/enable_persistent_anchors=true
+openxr/extensions/spatial_entity/enable_builtin_anchor_detection=true
+openxr/extensions/spatial_entity/enable_plane_tracking=true
+openxr/extensions/spatial_entity/enable_builtin_plane_detection=true
+openxr/extensions/spatial_entity/enable_marker_tracking=true
+openxr/extensions/spatial_entity/enable_builtin_marker_tracking=true
 shaders/enabled=true
-openxr/extensions/androidxr/passthrough_camera_state=true
+openxr/extensions/meta/passthrough=true
+openxr/extensions/meta/hand_tracking_aim=true
+openxr/extensions/meta/hand_tracking_mesh=true
+openxr/extensions/meta/hand_tracking_capsules=true
+openxr/extensions/meta/simultaneous_hands_and_controllers=true
+openxr/extensions/androidxr/dynamic_resolution=false
