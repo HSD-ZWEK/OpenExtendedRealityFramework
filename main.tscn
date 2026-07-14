@@ -8,9 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c0uvehivldubk" path="res://assets/hands/LeftHandHumanoid.gltf" id="4_ycdy4"]
 [ext_resource type="Material" uid="uid://cdioatccaw4ph" path="res://assets/hands/material/outline_material.tres" id="5_w48qg"]
 [ext_resource type="Script" uid="uid://bltlkkt4dqh5r" path="res://player/modifiers/xr_hand_fallback_modifier_3d.gd" id="6_vivmo"]
-[ext_resource type="PackedScene" uid="uid://cjbk77dtubyfc" path="res://player/tools/collision_creation_tool.tscn" id="7_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://c0yh3w5mhleyb" path="res://player/handlers/grab_handler.tscn" id="8_yaehf"]
-[ext_resource type="PackedScene" uid="uid://cyajb37v1sk7k" path="res://player/wrist_ui/touch_ui.tscn" id="9_074og"]
 [ext_resource type="PackedScene" uid="uid://cokxd0umykmsk" path="res://assets/hands/RightHandHumanoid.gltf" id="10_cegan"]
 
 [sub_resource type="Environment" id="Environment_vmkes"]
@@ -18,11 +16,16 @@ background_mode = 2
 
 [sub_resource type="Environment" id="Environment_8d6ww"]
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vmkes"]
+
 [node name="Main" type="Node3D" unique_id=1114470584]
 script = ExtResource("1_a202f")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2054042049]
 environment = SubResource("Environment_vmkes")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1277067084]
+transform = Transform3D(1, 0, 0, 0, 0.780256, 0.6254603, 0, -0.6254603, 0.780256, 0, 4.524921, 0)
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=391877039]
 
@@ -73,10 +76,6 @@ transform = Transform3D(1.7881392e-07, -1.838803e-05, 0.99999994, -0.9999985, 0.
 bone_name = "LeftHand"
 bone_idx = 0
 
-[node name="CollisionCreationTool" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/HandRootAttachment" unique_id=394321628 node_paths=PackedStringArray("create_on") instance=ExtResource("7_2cqfq")]
-transform = Transform3D(-4.3711392e-08, -0.90630794, -0.4226184, 0, 0.4226183, -0.9063081, 1.0000001, -3.9615976e-08, -1.8473237e-08, 0, 0.1, 0.03)
-create_on = NodePath("")
-
 [node name="GrabHandler" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/HandRootAttachment" unique_id=1157447408 instance=ExtResource("8_yaehf")]
 transform = Transform3D(1, 0, 3.5527137e-15, 0, 1, 0, 0, 0, 1, -0.02, 0.15, 0.05)
 grab_range = 0.05999999999767169
@@ -86,9 +85,6 @@ action = "trigger"
 transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
 bone_name = "LeftIndexTip"
 bone_idx = 9
-
-[node name="TouchUI" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/IndexTipAttachment" unique_id=1320316622 instance=ExtResource("9_074og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
 
 [node name="RightHand" type="XRNode3D" parent="XROrigin3D" unique_id=1307483068 node_paths=PackedStringArray("adjust_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
@@ -131,11 +127,6 @@ transform = Transform3D(1.7881392e-07, 1.838803e-05, -0.99999994, 0.9999985, 0.0
 bone_name = "RightHand"
 bone_idx = 0
 
-[node name="CollisionCreationTool" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/HandRootAttachment" unique_id=1590422582 node_paths=PackedStringArray("create_on") instance=ExtResource("7_2cqfq")]
-transform = Transform3D(-4.3711392e-08, 0.90630794, 0.42261833, 0, 0.4226183, -0.90630805, -1.0000001, -3.9615976e-08, -1.8473234e-08, 0, 0.1, 0.03)
-hand = 1
-create_on = NodePath("")
-
 [node name="GrabHandler" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/HandRootAttachment" unique_id=840749064 instance=ExtResource("8_yaehf")]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 0.02, 0.15, 0.05)
 grab_range = 0.05999999999767169
@@ -147,15 +138,16 @@ transform = Transform3D(0.01903836, -0.39268863, -0.9194744, 0.99322706, 0.11285
 bone_name = "RightIndexTip"
 bone_idx = 9
 
-[node name="TouchUI" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/IndexTipAttachment" unique_id=1034384016 instance=ExtResource("9_074og")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
-touch_id = 1
-
 [node name="Cube" parent="." unique_id=607016899 instance=ExtResource("3_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2114371, 1.1438665, -1.2979541)
 
 [node name="GodotPlush" parent="." unique_id=1411412323 instance=ExtResource("4_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22802627, 1.130008, -1.3168833)
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=977822549]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=151159214]
+shape = SubResource("WorldBoundaryShape3D_vmkes")
 
 [editable path="XROrigin3D/LeftHand/LeftHandHumanoid2"]
 [editable path="XROrigin3D/RightHand/RightHandHumanoid2"]
