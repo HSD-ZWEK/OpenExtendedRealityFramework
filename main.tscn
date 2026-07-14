@@ -7,7 +7,7 @@
 
 [sub_resource type="Environment" id="Environment_8d6ww"]
 
-[node name="Node3D" type="Node3D" unique_id=1114470584]
+[node name="Main" type="Node3D" unique_id=1114470584]
 script = ExtResource("1_a202f")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=391877039]
