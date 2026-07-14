@@ -46,5 +46,13 @@ viewport/transparent_background=true
 
 openxr/enabled=true
 openxr/environment_blend_mode=2
+openxr/extensions/hand_tracking=true
+openxr/extensions/hand_tracking_unobstructed_data_source=true
+openxr/extensions/hand_tracking_controller_data_source=true
+openxr/extensions/hand_interaction_profile=true
+openxr/extensions/spatial_entity/enabled=true
+openxr/extensions/spatial_entity/enable_spatial_anchors=true
+openxr/extensions/spatial_entity/enable_persistent_anchors=true
+openxr/extensions/spatial_entity/enable_builtin_anchor_detection=true
 shaders/enabled=true
-openxr/extensions/androidxr/passthrough_camera_state=true
+openxr/extensions/androidxr/passthrough_camera_state=false
