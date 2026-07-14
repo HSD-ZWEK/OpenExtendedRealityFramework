@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://be4k8yuw8kbx1" path="res://spatial_entities_manager.gd" id="2_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://ducoqe3p45nc8" path="res://cube.tscn" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://bnpfu2n01pj60" path="res://player/select_hand_tracker.gd" id="3_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dsh4e3vb240wp" path="res://spatial_entities_anchor.tscn" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://conwbvdi2t7gq" path="res://godot_plush.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://c0uvehivldubk" path="res://assets/hands/LeftHandHumanoid.gltf" id="4_ycdy4"]
 [ext_resource type="Material" uid="uid://cdioatccaw4ph" path="res://assets/hands/material/outline_material.tres" id="5_w48qg"]
@@ -32,6 +33,7 @@ transform = Transform3D(1, 0, 0, 0, 0.780256, 0.6254603, 0, -0.6254603, 0.780256
 [node name="SpatialEntitiesManager" type="Node3D" parent="XROrigin3D" unique_id=940936916]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 script = ExtResource("2_r3fl7")
+spatial_anchor_scene = ExtResource("3_efxa6")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1187930714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
@@ -46,12 +48,12 @@ adjust_node = NodePath("LeftHandHumanoid2")
 
 [node name="LeftHandHumanoid2" parent="XROrigin3D/LeftHand" unique_id=1378955417 instance=ExtResource("4_ycdy4")]
 
-[node name="LeftHandHumanoidMesh" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 1960946518) index="0" unique_id=741427958]
+[node name="LeftHandHumanoidMesh" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 955016542) index="0" unique_id=379131493]
 material_override = ExtResource("5_w48qg")
 
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 1960946518) index="1" unique_id=222874014]
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 955016542) index="1" unique_id=222874014]
 
-[node name="XRHandFallbackModifier3D" type="SkeletonModifier3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 1960946518) index="2" unique_id=1975275631]
+[node name="XRHandFallbackModifier3D" type="SkeletonModifier3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 955016542) index="2" unique_id=1975275631]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -71,7 +73,7 @@ influence = 1.0
 script = ExtResource("6_vivmo")
 metadata/_custom_type_script = "uid://bltlkkt4dqh5r"
 
-[node name="HandRootAttachment" type="BoneAttachment3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 1960946518) index="3" unique_id=725957064]
+[node name="HandRootAttachment" type="BoneAttachment3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 955016542) index="3" unique_id=725957064]
 transform = Transform3D(1.7881392e-07, -1.838803e-05, 0.99999994, -0.9999985, 0.0016677376, 1.7881392e-07, -0.0016676484, -0.99999833, -1.8358229e-05, 3.8642522e-08, -1.8697472e-05, 0.027175574)
 bone_name = "LeftHand"
 bone_idx = 0
@@ -81,7 +83,7 @@ transform = Transform3D(1, 0, 3.5527137e-15, 0, 1, 0, 0, 0, 1, -0.02, 0.15, 0.05
 grab_range = 0.05999999999767169
 action = "trigger"
 
-[node name="IndexTipAttachment" type="BoneAttachment3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 1960946518) index="4" unique_id=192209216]
+[node name="IndexTipAttachment" type="BoneAttachment3D" parent="XROrigin3D/LeftHand/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1378955417, 955016542) index="4" unique_id=192209216]
 transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
 bone_name = "LeftIndexTip"
 bone_idx = 9
@@ -96,13 +98,13 @@ adjust_node = NodePath("RightHandHumanoid2")
 
 [node name="RightHandHumanoid2" parent="XROrigin3D/RightHand" unique_id=1870433076 instance=ExtResource("10_cegan")]
 
-[node name="RightHandHumanoidMesh" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 1190502963) index="0" unique_id=1822671038]
+[node name="RightHandHumanoidMesh" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 963808593) index="0" unique_id=1813097830]
 material_override = ExtResource("5_w48qg")
 
-[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 1190502963) index="1" unique_id=464761920]
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 963808593) index="1" unique_id=464761920]
 hand_tracker = &"/user/hand_tracker/right"
 
-[node name="XRHandFallbackModifier3D" type="SkeletonModifier3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 1190502963) index="2" unique_id=522446273]
+[node name="XRHandFallbackModifier3D" type="SkeletonModifier3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 963808593) index="2" unique_id=522446273]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -122,7 +124,7 @@ influence = 1.0
 script = ExtResource("6_vivmo")
 metadata/_custom_type_script = "uid://bltlkkt4dqh5r"
 
-[node name="HandRootAttachment" type="BoneAttachment3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 1190502963) index="3" unique_id=1065261311]
+[node name="HandRootAttachment" type="BoneAttachment3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 963808593) index="3" unique_id=1065261311]
 transform = Transform3D(1.7881392e-07, 1.838803e-05, -0.99999994, 0.9999985, 0.0016677376, 1.7881392e-07, 0.0016676484, -0.99999833, -1.8358229e-05, -3.8642522e-08, -1.8697472e-05, 0.027175574)
 bone_name = "RightHand"
 bone_idx = 0
@@ -133,16 +135,16 @@ grab_range = 0.05999999999767169
 hand = 1
 action = "trigger"
 
-[node name="IndexTipAttachment" type="BoneAttachment3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 1190502963) index="4" unique_id=108314998]
+[node name="IndexTipAttachment" type="BoneAttachment3D" parent="XROrigin3D/RightHand/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1870433076, 963808593) index="4" unique_id=108314998]
 transform = Transform3D(0.01903836, -0.39268863, -0.9194744, 0.99322706, 0.11285307, -0.027631793, 0.11461615, -0.91272074, 0.39217746, 0.011100034, 0.04294298, -0.17161338)
 bone_name = "RightIndexTip"
 bone_idx = 9
 
 [node name="Cube" parent="." unique_id=607016899 instance=ExtResource("3_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2114371, 1.1438665, -1.2979541)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="GodotPlush" parent="." unique_id=1411412323 instance=ExtResource("4_lquwl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22802627, 1.130008, -1.3168833)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=977822549]
 
