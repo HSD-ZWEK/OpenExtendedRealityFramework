@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://bltlkkt4dqh5r" path="res://player/modifiers/xr_hand_fallback_modifier_3d.gd" id="6_vivmo"]
 [ext_resource type="PackedScene" uid="uid://c0yh3w5mhleyb" path="res://player/handlers/grab_handler.tscn" id="8_yaehf"]
 [ext_resource type="PackedScene" uid="uid://cokxd0umykmsk" path="res://assets/hands/RightHandHumanoid.gltf" id="10_cegan"]
+[ext_resource type="Script" uid="uid://cf3xthip8bue" path="res://live_kit.gd" id="12_dg77c"]
 
 [sub_resource type="Environment" id="Environment_vmkes"]
 background_mode = 2
@@ -18,6 +19,8 @@ background_mode = 2
 [sub_resource type="Environment" id="Environment_8d6ww"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vmkes"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_dg77c"]
 
 [node name="Main" type="Node3D" unique_id=1114470584]
 script = ExtResource("1_a202f")
@@ -150,6 +153,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=151159214]
 shape = SubResource("WorldBoundaryShape3D_vmkes")
+
+[node name="LiveKit" type="Node3D" parent="." unique_id=799528241]
+script = ExtResource("12_dg77c")
+
+[node name="AvatarVideo" type="Sprite3D" parent="LiveKit" unique_id=1644042606]
+pixel_size = 0.1
+texture = SubResource("MeshTexture_dg77c")
+
+[node name="AvatarAudio" type="AudioStreamPlayer" parent="LiveKit" unique_id=1078730994]
 
 [editable path="XROrigin3D/LeftHand/LeftHandHumanoid2"]
 [editable path="XROrigin3D/RightHand/RightHandHumanoid2"]

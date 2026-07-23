@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwe736drpcvhv"]
+
+[ext_resource type="Script" uid="uid://cf3xthip8bue" path="res://live_kit.gd" id="1_o26xf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4qmkm"]
+
+[node name="LiveKitSessionTest" type="Node3D" unique_id=1685766635]
+script = ExtResource("1_o26xf")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1770288149]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+
+[node name="AvatarVideo3D" type="Sprite3D" parent="." unique_id=664448646]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="AvatarAudio" type="AudioStreamPlayer" parent="." unique_id=1440844077]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1037747432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2399597)
+mesh = SubResource("BoxMesh_4qmkm")
