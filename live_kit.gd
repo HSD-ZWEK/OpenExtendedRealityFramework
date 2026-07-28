@@ -17,7 +17,7 @@ func _ready():
 	room.connected.connect(_on_connected)
 	room.participant_connected.connect(_on_participant_connected)
 	room.track_subscribed.connect(_on_track_subscribed)
-	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoibXktdGVzdC1yb29tIiwiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZX0sInJvb21Db25maWciOnsiYWdlbnRzIjpbeyJhZ2VudE5hbWUiOiJhdmEtYWdlbnQifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg0NzI2Nzc1LCJleHAiOjE3ODQ3NDgzNzV9.CSG43w1rE_Lsft13z2-5aUOVACxDcF2sULVvNtfmAV8", {})
+	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoidGVzdC1yb29tMiIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg1MjQwMTIyLCJleHAiOjE3ODUyNjE3MjJ9.Exdl0WEkzMKyW6F20WJKkY9oNyvfdl5_SM1JmHXVSME", {})
 
 func _on_connected():
 	print("Connected as: ", room.get_local_participant().get_identity())
@@ -40,6 +40,7 @@ func _on_track_subscribed(track, publication, participant):
 	print("Track subscribed: ", track.get_name(), " kind: ", track.get_kind(), " from: ", participant.get_identity())
 	if track.get_kind() == LiveKitTrack.KIND_VIDEO:
 		agent_video_stream = LiveKitVideoStream.from_track(track)
+		agent_video_stream.frame_received.connect(_on_video_frame_received)
 		avatar_video_sprite.texture = agent_video_stream.get_texture()
 	elif track.get_kind() == LiveKitTrack.KIND_AUDIO:
 		var gen := AudioStreamGenerator.new()
@@ -48,7 +49,16 @@ func _on_track_subscribed(track, publication, participant):
 		agent_audio_player.play()
 		agent_audio_playback = agent_audio_player.get_stream_playback()
 		agent_audio_stream = LiveKitAudioStream.from_track(track)
+		print("Audio player playing: ", agent_audio_player.playing)
+		
+func _on_video_frame_received():
+	print("REAL FRAME RECEIVED, size: ", agent_video_stream.get_texture().get_size())
 
 func _process(_delta):
 	if agent_audio_stream and agent_audio_playback:
 		agent_audio_stream.poll(agent_audio_playback)
+	if agent_video_stream:
+		var tex = agent_video_stream.get_texture()
+		if tex and tex.get_size() != Vector2.ZERO:
+			if avatar_video_sprite.texture != tex or Engine.get_frames_drawn() % 60 == 0:
+				print("Video texture size now: ", tex.get_size())
