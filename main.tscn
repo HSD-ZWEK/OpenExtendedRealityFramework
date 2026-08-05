@@ -157,7 +157,7 @@ shape = SubResource("WorldBoundaryShape3D_vmkes")
 [node name="LiveKit" type="Node3D" parent="." unique_id=799528241]
 script = ExtResource("12_dg77c")
 
-[node name="AvatarVideo" type="Sprite3D" parent="LiveKit" unique_id=1644042606]
+[node name="AvatarVideo3D" type="Sprite3D" parent="LiveKit" unique_id=1644042606]
 pixel_size = 0.1
 texture = SubResource("MeshTexture_dg77c")
 
