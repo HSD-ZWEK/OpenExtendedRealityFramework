@@ -19,9 +19,22 @@ func _ready():
 
 	room = LiveKitRoom.new()
 	room.connected.connect(_on_connected)
+	room.disconnected.connect(_on_disconnected)
+	room.connection_failed.connect(_on_connection_failed)
+	room.reconnecting.connect(func(): print("Reconnecting..."))
+	room.reconnected.connect(func(): print("Reconnected!"))
 	room.participant_connected.connect(_on_participant_connected)
 	room.track_subscribed.connect(_on_track_subscribed)
-	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4OCIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg1OTIzMjY3LCJleHAiOjE3ODU5NDQ4Njd9.TS8mwV7XthHBP3Okst-Eeh9nBYS01_SZwn1V_uHrTAE", {})
+
+	print("About to connect...")
+	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4OCIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg3NzQ4OTEyLCJleHAiOjE3ODc3NzA1MTJ9.uPeGYhcCHlZSpCVLfzLn490tXVPLZ5qHKJOejxqeyXw", {})
+	print("connect_to_room() called, state: ", room.get_connection_state())
+
+func _on_disconnected():
+	print("DISCONNECTED")
+
+func _on_connection_failed(error: String):
+	print("CONNECTION FAILED: ", error)
 
 func _on_connected():
 	print("Connected as: ", room.get_local_participant().get_identity())
