@@ -6,6 +6,8 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_4qmkm"]
 
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_4qmkm"]
+
 [node name="LiveKitSessionTest" type="Node3D" unique_id=1685766635]
 script = ExtResource("1_o26xf")
 
@@ -24,3 +26,8 @@ mesh = SubResource("BoxMesh_4qmkm")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1338485828]
 transform = Transform3D(1, 0, 0, 0, 0.8796387, 0.4756425, 0, -0.4756425, 0.8796387, 0, 2.842316, 2.2991252)
+
+[node name="MicInput" type="AudioStreamPlayer" parent="." unique_id=548077722]
+stream = SubResource("AudioStreamMicrophone_4qmkm")
+autoplay = true
+bus = &"MicCapture"

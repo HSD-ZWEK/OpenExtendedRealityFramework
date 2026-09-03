@@ -12,8 +12,12 @@ var agent_audio_playback: AudioStreamGeneratorPlayback
 
 @onready var avatar_video_sprite: Sprite3D = $AvatarVideo3D
 @onready var agent_audio_player: AudioStreamPlayer = $AvatarAudio
+@onready var mic_input_player: AudioStreamPlayer = $MicInput
+var mic_capture_effect: AudioEffectCapture
 
 func _ready():
+	print("Input devices: ", AudioServer.get_input_device_list())
+	print("Current input device: ", AudioServer.input_device)
 	avatar_video_sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	avatar_video_sprite.shaded = false
 
@@ -27,8 +31,20 @@ func _ready():
 	room.track_subscribed.connect(_on_track_subscribed)
 
 	print("About to connect...")
-	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4OCIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg3NzQ4OTEyLCJleHAiOjE3ODc3NzA1MTJ9.uPeGYhcCHlZSpCVLfzLn490tXVPLZ5qHKJOejxqeyXw", {})
+	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4OCIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg4NDI2OTA0LCJleHAiOjE3ODg0NDg1MDR9.TiY-rq0wifsO740_8KHWtUeFdxQo6JuStRRwFEFNVDk", {})
 	print("connect_to_room() called, state: ", room.get_connection_state())
+	
+	var mic_stream = AudioStreamMicrophone.new()
+	mic_input_player.stream = mic_stream
+	mic_input_player.play()
+
+	var bus_idx = AudioServer.get_bus_index("MicCapture")
+	mic_capture_effect = AudioServer.get_bus_effect(bus_idx, 0)
+	
+	print("Mic player playing: ", mic_input_player.playing)
+	print("Mic player stream: ", mic_input_player.stream)
+	print("Mic player bus: ", mic_input_player.bus)
+	print("Actual mix rate now: ", AudioServer.get_mix_rate())
 
 func _on_disconnected():
 	print("DISCONNECTED")
@@ -88,7 +104,14 @@ func _on_participant_connected(participant):
 func _on_track_subscribed(track, publication, participant):
 	_handle_track(track, publication, participant)
 
+var handled_track_sids := {}
+
 func _handle_track(track, publication, participant):
+	var sid = publication.get_sid()  # or track.get_sid() if publication doesn't expose it
+	if handled_track_sids.has(sid):
+		return
+	handled_track_sids[sid] = true
+
 	print("Track subscribed: ", track.get_name(), " kind: ", track.get_kind(), " from: ", participant.get_identity())
 	if track.get_kind() == LiveKitTrack.KIND_VIDEO:
 		agent_video_stream = LiveKitVideoStream.from_track(track)
@@ -106,6 +129,9 @@ func _handle_track(track, publication, participant):
 func _on_video_frame_received():
 	print("REAL FRAME RECEIVED, size: ", agent_video_stream.get_texture().get_size())
 
+var mic_ring_buffer := PackedFloat32Array()
+const CHUNK_SIZE := 480  # 10ms at 48000 Hz
+
 func _process(_delta):
 	if agent_audio_stream and agent_audio_playback:
 		agent_audio_stream.poll(agent_audio_playback)
@@ -114,3 +140,20 @@ func _process(_delta):
 		if tex and tex.get_size() != Vector2.ZERO:
 			if avatar_video_sprite.texture != tex or Engine.get_frames_drawn() % 60 == 0:
 				print("Video texture size now: ", tex.get_size())
+
+	if mic_source:
+		if Engine.get_frames_drawn() % 60 == 0:
+			print("Queued duration: ", mic_source.get_queued_duration())
+	# Pull captured mic audio and forward to LiveKit
+	if mic_source and mic_capture_effect:
+		var frames_available = mic_capture_effect.get_frames_available()
+		if frames_available > 0:
+			var stereo_buf: PackedVector2Array = mic_capture_effect.get_buffer(frames_available)
+			for i in range(stereo_buf.size()):
+				mic_ring_buffer.append((stereo_buf[i].x + stereo_buf[i].y) * 0.5)
+
+			# Emit fixed-size chunks only
+			while mic_ring_buffer.size() >= CHUNK_SIZE:
+				var chunk := mic_ring_buffer.slice(0, CHUNK_SIZE)
+				mic_source.capture_frame(chunk, 48000, 1, CHUNK_SIZE)
+				mic_ring_buffer = mic_ring_buffer.slice(CHUNK_SIZE)
