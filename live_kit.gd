@@ -31,7 +31,7 @@ func _ready():
 	room.track_subscribed.connect(_on_track_subscribed)
 
 	print("About to connect...")
-	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4OCIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg4NDI2OTA0LCJleHAiOjE3ODg0NDg1MDR9.TiY-rq0wifsO740_8KHWtUeFdxQo6JuStRRwFEFNVDk", {})
+	room.connect_to_room("wss://avalumatest-uym3e2l2.livekit.cloud", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ29kb3QtdXNlciIsInZpZGVvIjp7InJvb21Kb2luIjp0cnVlLCJyb29tIjoiY29uc29sZS00ZjA2NjY4NyIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWV9LCJyb29tQ29uZmlnIjp7ImFnZW50cyI6W3siYWdlbnROYW1lIjoiYXZhLWFnZW50LXRlc3QifV19LCJzdWIiOiJnb2RvdC11c2VyIiwiaXNzIjoiQVBJdmZGZHNVNzJqcmI1IiwibmJmIjoxNzg5NTYxNzkwLCJleHAiOjE3ODk1ODMzOTB9.LByvWzejL7c640FsDFcqGLuPF7Q4fjKXCZpBvbqj-rI", {})
 	print("connect_to_room() called, state: ", room.get_connection_state())
 	
 	var mic_stream = AudioStreamMicrophone.new()
@@ -150,7 +150,8 @@ func _process(_delta):
 		if frames_available > 0:
 			var stereo_buf: PackedVector2Array = mic_capture_effect.get_buffer(frames_available)
 			for i in range(stereo_buf.size()):
-				mic_ring_buffer.append((stereo_buf[i].x + stereo_buf[i].y) * 0.5)
+				mic_ring_buffer.append(stereo_buf[i].x)
+				#mic_ring_buffer.append((stereo_buf[i].x + stereo_buf[i].y) * 0.5)
 
 			# Emit fixed-size chunks only
 			while mic_ring_buffer.size() >= CHUNK_SIZE:

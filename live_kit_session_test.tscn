@@ -29,5 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 0.8796387, 0.4756425, 0, -0.4756425, 0.87963
 
 [node name="MicInput" type="AudioStreamPlayer" parent="." unique_id=548077722]
 stream = SubResource("AudioStreamMicrophone_4qmkm")
+volume_db = 11.242
 autoplay = true
 bus = &"MicCapture"
