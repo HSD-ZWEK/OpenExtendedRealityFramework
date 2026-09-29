@@ -118,7 +118,7 @@ async def my_agent(ctx: JobContext):
 
     # Avatar
     avatar = AvatarSession(
-        license_key="key/eyJhY2NvdW50Ijp7ImlkIjoiOTkyMjc0ZTQtZjQ2Zi00MmFkLTg0MGUtNmU0NTUxOWI1ZjQ3In0sInByb2R1Y3QiOnsiaWQiOiJlNzkzMzBkYi1kMmM1LTQwMDItYTRhYi00OThlN2YwNmNiYWUifSwicG9saWN5Ijp7ImlkIjoiOTM5MmZjOGItMjFiZC00YjZjLTg1ODAtZWM2NTJlNjcxMmJiIiwiZHVyYXRpb24iOjI4MDI1NDZ9LCJ1c2VyIjpudWxsLCJsaWNlbnNlIjp7ImlkIjoiYWNkNDk2MTItNDE3MS00NTYzLWJhOTUtMzY5NzVjYjRmOTRhIiwiY3JlYXRlZCI6IjIwMjYtMDgtMjVUMTI6Mjk6MzQuMjk4WiIsImV4cGlyeSI6IjIwMjYtMDktMjdUMTI6Mjk6MzQuMzAzWiJ9fQ==.gCVky2XyVSTJWDA2Kmn5WWAkn4LGFzvVLGWkd0XD6rLbRgQAv0dpCKCvkQvgcNRpPCiRi-e0vvAjpq4CBS0gAQ==",
+        license_key="",
         avatar_id="260218-Avaluma_Avatar_Kadda_v5",
         avatar_server_url="https://api.avaluma.ai",
     )
