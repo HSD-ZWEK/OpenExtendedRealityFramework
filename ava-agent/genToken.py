@@ -6,8 +6,8 @@ import os
 load_dotenv(".env.local")
 
 token = api.AccessToken(
-    os.getenv("APIvfFdsU72jrb5"),
-    os.getenv("FQXcyLBeefmHNQie84Su2IXo5kOM88QDr017benbRJuB"),
+    os.getenv(""),
+    os.getenv(""),
 ) \
     .with_identity("godot-user") \
     .with_name("godot-user") \
